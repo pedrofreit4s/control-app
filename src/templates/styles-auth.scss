@@ -1,0 +1,124 @@
+@import 'src/templates/scss/variables.scss';
+
+body {
+  background: $color-default;
+}
+
+.card {
+  width: 466px;
+  height: 692px;
+  background: #ffffff;
+  padding: 40px 49px;
+  border-radius: 14px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  .logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  h3 {
+    color: $color-title;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 35px;
+  }
+  p {
+    color: $color-p;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Poppins';
+    margin-top: 4px;
+  }
+  form {
+    margin-top: 55px;
+    .tt-password_rec {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > button {
+        color: #9fa2b4;
+        font-size: 13px;
+        font-weight: 399;
+        font-family: 'Poppins';
+        border: 0;
+        outline: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+    }
+    .tt-input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+    .tt-input {
+      border: 0.14rem solid #e3e9ee;
+      height: 56px;
+      border-radius: 10px;
+      padding: 0 20px;
+      outline: 0;
+      color: $color-default;
+      font-family: 'Poppins';
+      font-weight: 500;
+      &::placeholder {
+        color: #bcbec8 !important;
+        font-size: 15px;
+        font-family: 'Poppins';
+      }
+    }
+    .tt-label {
+      color: #9fa2b4;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'Poppins';
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    > button {
+      width: 100%;
+      height: 60px;
+      color: #ffffff;
+      font-size: 17px;
+      font-family: 'Poppins';
+      font-weight: 500;
+      text-align: center;
+      background: $color-primary;
+      border: 0;
+      box-shadow: 0px 4px 20px rgba(55, 82, 255, 0.27);
+      border-radius: 12px;
+      outline: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 12px;
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  }
+  > .no-account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 65px;
+    button {
+      color: #9fa2b4;
+      font-size: 16px;
+      text-align: center;
+      margin: 0 auto;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      span {
+        color: $color-primary;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
