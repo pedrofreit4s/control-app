@@ -1,16 +1,13 @@
-import queryString from "query-string";
 import React, { useRef } from "react";
 import { RouterProps } from "react-router-dom";
 import Swal from "sweetalert2";
 import AuthTemplate from "../../templates/auth";
 import api, { TrateException } from "../../utils/api";
-import localstorage from "../../utils/localstorage";
 
-const Login = (route: RouterProps) => {
+const Register = (route: RouterProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const urlParams = queryString.parse(route.history.location.search);
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +19,8 @@ const Login = (route: RouterProps) => {
     };
 
     api
-      .post("/account/auth", {
+      .post("/account/register", {
+        name: "",
         email: emailRef.current?.value || "",
         password: passwordRef.current?.value || "",
       })
@@ -30,10 +28,15 @@ const Login = (route: RouterProps) => {
         TrateException(
           data,
           () => {
-            localstorage.setUserSession(data.token);
             setTimeout(() => {
+              Swal.fire({
+                title: "Sucesso!",
+                text: data.message,
+                icon: "success",
+              }).then(() =>
+                route.history.push("/auth?email=" + emailRef.current?.value)
+              );
               closeOverlay();
-              route.history.push("/");
             }, 2000);
           },
           () => {
@@ -51,7 +54,7 @@ const Login = (route: RouterProps) => {
   };
 
   return (
-    <AuthTemplate title="Faça o seu login!">
+    <AuthTemplate title="Crie a sua conta!">
       <div ref={overlayRef} className="overlay__loadding__none">
         <div className="wrapper__cover">
           <div className="wrapper">
@@ -81,8 +84,8 @@ const Login = (route: RouterProps) => {
             />
           </svg>
         </div>
-        <h3>Faça login para continuar</h3>
-        <p>acesse sua conta, ou crie uma caso não tenha</p>
+        <h3>Crie já sua conta!</h3>
+        <p>complete o formulário para se cadastrar!</p>
         <form onSubmit={handleSubmit}>
           <div className="tt-input-group">
             <label htmlFor="email" className="tt-label">
@@ -94,7 +97,6 @@ const Login = (route: RouterProps) => {
               type="email"
               className="tt-input"
               placeholder="Endereço de e-mail"
-              defaultValue={urlParams.email || ""}
             />
           </div>
           <div className="tt-input-group">
@@ -102,7 +104,6 @@ const Login = (route: RouterProps) => {
               <label htmlFor="password" className="tt-label">
                 Senha
               </label>
-              <button>esqueceu a senha?</button>
             </div>
             <input
               ref={passwordRef}
@@ -112,11 +113,11 @@ const Login = (route: RouterProps) => {
               placeholder="Digite a senha"
             />
           </div>
-          <button type="submit">Acessar</button>
+          <button type="submit">Criar minha conta</button>
         </form>
         <div className="no-account">
-          <button onClick={() => route.history.push("/auth/create-account")}>
-            Não tem uma conta? <span>Crie uma!</span>
+          <button onClick={() => route.history.push("/auth")}>
+            Já tem uma conta? <span>Faça login!</span>
           </button>
         </div>
       </div>
@@ -124,4 +125,4 @@ const Login = (route: RouterProps) => {
   );
 };
 
-export default Login;
+export default Register;
